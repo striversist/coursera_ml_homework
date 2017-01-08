@@ -30,9 +30,11 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
-
-
-
+p_all = X * all_theta';
+p_row_ones = (p_all' == max(p_all'))';
+for i = 1:m
+	p(i) = find(p_row_ones(i, :) == 1);
+end
 
 
 
