@@ -73,7 +73,8 @@ for i = 1:m
 	y2(i, val) = 1;
 end
 J1 = 1/m * sum(sum(-y2 .* log(h) - (1 - y2) .* log(1 - h)));
-J = J1;
+J2 = lambda/(2*m) * (sum(sum(Theta1(:, 2:end) .^ 2)) + sum(sum(Theta2(:, 2:end) .^ 2)))
+J = J1 + J2;
 
 
 
