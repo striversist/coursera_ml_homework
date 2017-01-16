@@ -62,11 +62,13 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% Feedforward
 X = [ones(m, 1) X];
 a2 = sigmoid(X * Theta1');
 a2 = [ones(m, 1), a2];
 h = sigmoid(a2 * Theta2');
 
+% Compute Cost
 y2 = zeros(m, num_labels);
 for i = 1:m
 	val = y(i, :);
@@ -76,11 +78,27 @@ J1 = 1/m * sum(sum(-y2 .* log(h) - (1 - y2) .* log(1 - h)));
 J2 = lambda/(2*m) * (sum(sum(Theta1(:, 2:end) .^ 2)) + sum(sum(Theta2(:, 2:end) .^ 2)));
 J = J1 + J2;
 
+% Compute Gradient
+for i = 1:m
+    a1 = X(i, :)';
+    z2 = Theta1 * a1;
+    a2 = [1; sigmoid(z2)];
+    z3 = Theta2 * a2;
+    a3 = sigmoid(z3);
+    
+    delta_3 = a3 - y2(i, :)';
+    delta_2 = (Theta2(:, 2:end)' * delta_3) .* sigmoidGradient(z2);
+%    fprintf('size(delta_3):\n');
+%    size(delta_3)
+%    fprintf('size(delta_2):\n');
+%    size(delta_2)
+    
+    Theta1_grad += delta_2 * a1';
+    Theta2_grad += delta_3 * a2';
+end
 
-
-
-
-
+Theta1_grad *= 1/m;
+Theta2_grad *= 1/m;
 
 
 % -------------------------------------------------------------
