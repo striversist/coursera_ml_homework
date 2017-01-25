@@ -24,10 +24,10 @@ J1 = 1/(2*m) * sum((h - y) .^ 2);
 J2 = lambda/(2*m) * sum(theta(2:end) .^ 2);
 J = J1 + J2;
 
-
-
-
-
+grad1 = 1/m * (X' * (h - y));
+grad2 = lambda/m * theta(2:end);
+grad2 = [0; grad2];
+grad = grad1 + grad2;
 
 
 
