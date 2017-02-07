@@ -26,7 +26,12 @@ for i = 1:size(X,1)
     for k = 1:K
         dists(k) = sum((X(i,:) - centroids(k,:)) .^ 2);
     end
-    idx(i) = find(dists == min(dists));
+    v = find(dists == min(dists));
+    if length(v) > 1
+        idx(i) = v(1);
+    else
+        idx(i) = v;
+    end
 end
 
 
