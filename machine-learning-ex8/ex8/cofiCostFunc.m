@@ -45,14 +45,13 @@ J2 = lambda/2 * sum(sum(Theta .^ 2));
 J3 = lambda/2 * sum(sum(X .^ 2));
 J = J1 + J2 + J3;
 
-X_grad = (X * Theta' - Y) .* R * Theta;
-Theta_grad = ((X * Theta' - Y) .* R)' * X;
+X_grad1 = (X * Theta' - Y) .* R * Theta;
+X_grad2 = X * lambda;
+X_grad = X_grad1 + X_grad2;
 
-
-
-
-
-
+Theta_grad1 = ((X * Theta' - Y) .* R)' * X;
+Theta_grad2 = lambda * Theta;
+Theta_grad = Theta_grad1 + Theta_grad2;
 
 
 
